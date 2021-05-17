@@ -2,7 +2,8 @@
 import React, { useState} from "react";
 import { makeStyles } from '@material-ui/core/styles';
  import Button from '@material-ui/core/Button';
-
+ import Grid from '@material-ui/core/Grid';
+ import { Container } from '@material-ui/core';
 // Styles
 import "./App.css";
 
@@ -10,9 +11,9 @@ let globalEndCronometer = false;
 let i = 0;
 
 function App() {
-
+//Styles
     const useStyles = makeStyles({
-      root: {
+      button: {
         background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
         border: 0,
         borderRadius: 3,
@@ -21,11 +22,25 @@ function App() {
         height: 48,
         padding: '0 30px',
       },
+      grid: {
+        background: 'linear-gradient(45deg, #552586 30%, #804FB3 90%)',
+        height    : "1000px",
+        width     : "100%",
+        
+      },
+      container: {
+        height    : "400px",
+        width     : "50%"
+      }
     });
-  
+   
 
+  
+//Hooks
     const [cronometer, setCronometer] = useState(0);
-    const classes = useStyles();
+    const classes        = useStyles();
+
+//JS
     async function chronometerStart(){
       globalEndCronometer = false;
       while ((globalEndCronometer===false)){
@@ -63,15 +78,16 @@ function App() {
   // }
  
   return (
-      <div>
-           {/* <Routes /> */}
-           <h1> APP DE CRONOMETRO</h1>
-           <h1>{cronometer}</h1>
-           <Button  className={classes.root} onClick={() => chronometerStart()}>START</Button>
-           <Button  className={classes.root} onClick={() => chronometerPause()}>PAUSE</Button>
-           <Button  className={classes.root} onClick={() => chronometerEnd()}>END</Button>
-           {/* <button onClick={probarApi()}>PROBAR API</button> */}
-      </div>
+      <Grid container spacing={250} className={classes.grid}>
+        <Container className={classes.container}>
+            <h1> APP DE CRONOMETRO</h1>
+            <h1>{cronometer}</h1>
+                <Button  className={classes.button} onClick={() => chronometerStart()}>START</Button>
+                <Button  className={classes.button} onClick={() => chronometerPause()}>PAUSE</Button>
+                <Button  className={classes.button} onClick={() => chronometerEnd()}>END</Button>
+            {/* <button onClick={probarApi()}>PROBAR API</button> */}
+        </Container>
+      </Grid>
   );
 }
 
