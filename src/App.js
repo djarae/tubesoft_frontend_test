@@ -50,24 +50,22 @@ function App() {
     const classes        = useStyles();
 
 //JS
-    async function chronometerStart(){
-      const sesenta = 12;
-      const cero = 0;
+    async function chronometerStart(test,secP,minP,hrP){
       endCronometer = false;
       while ((endCronometer===false)){
-        // console.log("value of endCronometer is ");console.log(endCronometer);
-        if (i!=sesenta){setCronometerSec(i + 1)}
-        // console.log("cronometer value " + cronometer)
-        i = i + 1;
-        if (i>9){setAuxSec("")}
-        if (j>9){setAuxMin("")}
-        if (k>9){setAuxHr("")}
-        console.log("resultado divi");console.log(i%sesenta)
-        if (i%sesenta==0){setCronometerMin(j+1); j=j+1}
-        if ( (j%sesenta==0) & (j>0)){  setCronometerHr(k+1); k=k+1}
-        if (i==sesenta){ setCronometerSec(cero);i=0; setAuxSec(0) }
-        if (j==sesenta){ setCronometerMin(cero);j=0; setAuxMin(0) }
-        await delay(1);
+          // console.log("value of endCronometer is ");console.log(endCronometer);
+          if (i!=secP){setCronometerSec(i + 1)}
+          // console.log("cronometer value " + cronometer)
+          i = i + 1;
+          if (i>9){setAuxSec("")}
+          if (j>9){setAuxMin("")}
+          if (k>9){setAuxHr("")}
+          // console.log("resultado divi");console.log(i%secP)
+          if (i%secP==0){setCronometerMin(j+1); j=j+1}
+          if ( (j%minP==0) & (j>0)){  setCronometerHr(k+1); k=k+1}
+          if (i==secP){ setCronometerSec(0);i=0; setAuxSec(0) }
+          if (j==minP){ setCronometerMin(0);j=0; setAuxMin(0) }
+          await delay(1);
       }
       return 0 ;
     }
@@ -106,8 +104,8 @@ function App() {
       send = hr+":"+min+":"+sec;
       console.log("enviar vale ") ;console.log(send)
       i = 0;
-      j=0;
-      k=0;
+      j = 0;
+      k = 0;
       setCronometerSec(0);
       setCronometerMin(0);
       setCronometerHr(0);
@@ -143,7 +141,7 @@ function App() {
         <Container className={classes.container}>
             <h1> APP DE CRONOMETRO</h1>
             <h1>{auxHr}{cronometerHr}:{auxMin}{cronometerMin}:{auxSec}{cronometerSec}</h1>
-                <Button  className={classes.button} onClick={() => chronometerStart()}>START</Button>
+                <Button  className={classes.button} onClick={() => chronometerStart(0,12,12,12)}>START</Button>
                 <Button  className={classes.button} onClick={() => chronometerPause()}>PAUSE</Button>
                 <Button  className={classes.button} onClick={() => chronometerEnd()}>END</Button>
             {/* <button onClick={() => probarApi()}>PROBAR API</button> */}
