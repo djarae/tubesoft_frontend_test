@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
  import { Container } from '@material-ui/core';
 // Styles
 import "./App.css";
+//Unit Functions
+import { formatingValue } from './functions/formatingValue';
 
 let endCronometer = false;
 let i = 0;
@@ -138,32 +140,7 @@ function App() {
       probarApi(send);
     }
 
-    function formatingValue(secInt,minInt,hrInt){
-          let secStr=""
-          let minStr=""
-          let hrStr=""
-          if (secInt<=9){  
-            secStr = "0"+secInt.toString();
-          }
-          else{ 
-            secStr = secInt.toString();
-          }
-          if (minInt<=9){  
-            minStr ="0"+minInt.toString();
-          }
-          else{  
-            minStr = minInt.toString(); 
-          }
-          if (hrInt<=9){  
-            hrStr ="0"+hrInt.toString();
-          }
-          else{  
-            hrStr = minInt.toString(); 
-          }
-          hrStr = hrInt.toString(); 
-        return (hrStr+":"+minStr+":"+secStr)
-    }
-
+   
     function initializeValues(){
       endCronometer = true;
       i = 0;
