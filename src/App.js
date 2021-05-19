@@ -50,25 +50,76 @@ function App() {
     const classes        = useStyles();
 
 //JS
+//START Chronometer Start & associated functions :
     async function chronometerStart(test,secP,minP,hrP){
       endCronometer = false;
       while ((endCronometer===false)){
           // console.log("value of endCronometer is ");console.log(endCronometer);
-          if (i!=secP){setCronometerSec(i + 1)}
+          if ((!test) & (i!=secP)) {
+              setCronometerSec(i + 1)
+          }
           // console.log("cronometer value " + cronometer)
           i = i + 1;
-          if (i>9){setAuxSec("")}
-          if (j>9){setAuxMin("")}
-          if (k>9){setAuxHr("")}
+          if (!test){
+            cleanAuxs();
+            noTestingF(secP,minP,hrP);
+          }
           // console.log("resultado divi");console.log(i%secP)
-          if (i%secP==0){setCronometerMin(j+1); j=j+1}
-          if ( (j%minP==0) & (j>0)){  setCronometerHr(k+1); k=k+1}
-          if (i==secP){ setCronometerSec(0);i=0; setAuxSec(0) }
-          if (j==minP){ setCronometerMin(0);j=0; setAuxMin(0) }
-          await delay(1);
+          generalF(secP,minP,hrP)
+          if (!test){
+            await delay(1);
+          }
       }
       return 0 ;
     }
+
+    function cleanAuxs(){
+      if (i>9){
+        setAuxSec("")
+      }
+      if (j>9){
+        setAuxMin("")
+      }
+      if (k>9){
+        setAuxHr("")
+      }
+    }
+
+    function noTestingF(secP,minP,hrP){
+      if (i%secP==0){
+        setCronometerMin(j+1)
+      }
+      if ((j%minP==0) & (j>0)){ 
+        setCronometerHr(k+1)   
+      }     
+      if (i==secP){              
+        setCronometerSec(0);setAuxSec(0)
+      }
+      if (j==minP){             
+         setCronometerMin(0);setAuxMin(0)
+      }
+    }
+
+    function generalF(secP,minP,hrP){
+      if (i%secP==0){
+        j=j+1
+      }
+      if ((j%minP==0) & (j>0)){
+        k=k+1
+      }
+      if (i==secP){
+        i=0 
+      }
+      if (j==minP){
+         j=0 
+      }
+    }
+//END Chronometer Start & associated functions :
+
+
+
+
+
 
     function chronometerPause(){
       endCronometer = true;
@@ -141,7 +192,7 @@ function App() {
         <Container className={classes.container}>
             <h1> APP DE CRONOMETRO</h1>
             <h1>{auxHr}{cronometerHr}:{auxMin}{cronometerMin}:{auxSec}{cronometerSec}</h1>
-                <Button  className={classes.button} onClick={() => chronometerStart(0,12,12,12)}>START</Button>
+                <Button  className={classes.button} onClick={() => chronometerStart(false,12,12,12)}>START</Button>
                 <Button  className={classes.button} onClick={() => chronometerPause()}>PAUSE</Button>
                 <Button  className={classes.button} onClick={() => chronometerEnd()}>END</Button>
             {/* <button onClick={() => probarApi()}>PROBAR API</button> */}
