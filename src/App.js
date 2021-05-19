@@ -51,7 +51,7 @@ function App() {
 
 //JS
     async function chronometerStart(){
-      const sesenta = 3;
+      const sesenta = 12;
       const cero = 0;
       endCronometer = false;
       while ((endCronometer===false)){
@@ -62,11 +62,11 @@ function App() {
         if (i>9){setAuxSec("")}
         if (j>9){setAuxMin("")}
         if (k>9){setAuxHr("")}
-        console.log("resultado divi");console.log(i%3)
+        console.log("resultado divi");console.log(i%sesenta)
         if (i%sesenta==0){setCronometerMin(j+1); j=j+1}
         if ( (j%sesenta==0) & (j>0)){  setCronometerHr(k+1); k=k+1}
-        if (i==sesenta){ setCronometerSec(cero);i=0  }
-        if (j==sesenta){ setCronometerMin(cero);j=0 }
+        if (i==sesenta){ setCronometerSec(cero);i=0; setAuxSec(0) }
+        if (j==sesenta){ setCronometerMin(cero);j=0; setAuxMin(0) }
         await delay(1);
       }
       return 0 ;
@@ -80,12 +80,39 @@ function App() {
       // console.log("entro al end cronometer ");
       endCronometer = true;
       // console.log(endCronometer);
+      let sec=""
+      let min=""
+      let hr=""
+      let send = ""
+      if (i<=9){  
+        sec = "0"+i.toString();
+      }
+      else{ 
+        sec = i.toString();
+      }
+      if (j<=9){  
+        min ="0"+j.toString();
+      }
+      else{  
+        min = j.toString(); 
+      }
+      if (k<=9){  
+        hr ="0"+k.toString();
+      }
+      else{  
+        hr = j.toString(); 
+      }
+      hr = k.toString(); 
+      send = hr+":"+min+":"+sec;
+      console.log("enviar vale ") ;console.log(send)
       i = 0;
       j=0;
       k=0;
       setCronometerSec(0);
       setCronometerMin(0);
       setCronometerHr(0);
+
+      probarApi(send);
     }
     
     function delay(n){
@@ -94,13 +121,14 @@ function App() {
       });
     }
 
-    function probarApi(){
+    function probarApi(send){
       console.log("Estamos en react probaremos la api dx")
 
       const requestOptions = {
         method: 'POST',
-        body: JSON.stringify({ id: 9,duration: "16" })
-      };
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: 24, duration: send })
+    };
 
       console.log("requestopt valen")
       console.log(requestOptions);
@@ -118,7 +146,7 @@ function App() {
                 <Button  className={classes.button} onClick={() => chronometerStart()}>START</Button>
                 <Button  className={classes.button} onClick={() => chronometerPause()}>PAUSE</Button>
                 <Button  className={classes.button} onClick={() => chronometerEnd()}>END</Button>
-            <button onClick={() => probarApi()}>PROBAR API</button>
+            {/* <button onClick={() => probarApi()}>PROBAR API</button> */}
         </Container>
       </Grid>
   );
