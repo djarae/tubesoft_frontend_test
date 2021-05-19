@@ -69,8 +69,18 @@ function App() {
           if (!test){
             await delay(1);
           }
+          if (test){
+              return formatingValue(secP,minP,hrP)
+          }
       }
-      return 0 ;
+      return  0
+    }
+
+
+    function delay(n){
+      return new Promise(function(resolve){
+          setTimeout(resolve,n*1000);
+      });
     }
 
     function cleanAuxs(){
@@ -86,74 +96,76 @@ function App() {
     }
 
     function noTestingF(secP,minP,hrP){
-      if (i%secP==0){
-        setCronometerMin(j+1)
-      }
-      if ((j%minP==0) & (j>0)){ 
-        setCronometerHr(k+1)   
-      }     
-      if (i==secP){              
-        setCronometerSec(0);setAuxSec(0)
-      }
-      if (j==minP){             
-         setCronometerMin(0);setAuxMin(0)
-      }
+        if (i%secP==0){
+          setCronometerMin(j+1)
+        }
+        if ((j%minP==0) & (j>0)){ 
+          setCronometerHr(k+1)   
+        }     
+        if (i==secP){              
+          setCronometerSec(0);setAuxSec(0)
+        }
+        if (j==minP){             
+          setCronometerMin(0);setAuxMin(0)
+        }
     }
 
     function generalF(secP,minP,hrP){
-      if (i%secP==0){
-        j=j+1
-      }
-      if ((j%minP==0) & (j>0)){
-        k=k+1
-      }
-      if (i==secP){
-        i=0 
-      }
-      if (j==minP){
-         j=0 
-      }
+          if (i%secP==0){
+            j=j+1
+          }
+          if ((j%minP==0) & (j>0)){
+            k=k+1
+          }
+          if (i==secP){
+            i=0 
+          }
+          if (j==minP){
+            j=0 
+          }
     }
 //END Chronometer Start & associated functions :
-
-
-
-
-
-
     function chronometerPause(){
       endCronometer = true;
     }
-
+//START- Cronometer END
     function chronometerEnd(){
       // console.log("entro al end cronometer ");
-      endCronometer = true;
       // console.log(endCronometer);
-      let sec=""
-      let min=""
-      let hr=""
-      let send = ""
-      if (i<=9){  
-        sec = "0"+i.toString();
-      }
-      else{ 
-        sec = i.toString();
-      }
-      if (j<=9){  
-        min ="0"+j.toString();
-      }
-      else{  
-        min = j.toString(); 
-      }
-      if (k<=9){  
-        hr ="0"+k.toString();
-      }
-      else{  
-        hr = j.toString(); 
-      }
-      hr = k.toString(); 
-      send = hr+":"+min+":"+sec;
+      let send = formatingValue(i,j,k);
       console.log("enviar vale ") ;console.log(send)
+      initializeValues();
+      probarApi(send);
+    }
+
+    function formatingValue(secInt,minInt,hrInt){
+          let secStr=""
+          let minStr=""
+          let hrStr=""
+          if (secInt<=9){  
+            secStr = "0"+secInt.toString();
+          }
+          else{ 
+            secStr = secInt.toString();
+          }
+          if (minInt<=9){  
+            minStr ="0"+minInt.toString();
+          }
+          else{  
+            minStr = minInt.toString(); 
+          }
+          if (hrInt<=9){  
+            hrStr ="0"+hrInt.toString();
+          }
+          else{  
+            hrStr = minInt.toString(); 
+          }
+          hrStr = hrInt.toString(); 
+        return (hrStr+":"+minStr+":"+secStr)
+    }
+
+    function initializeValues(){
+      endCronometer = true;
       i = 0;
       j = 0;
       k = 0;
@@ -161,23 +173,18 @@ function App() {
       setCronometerMin(0);
       setCronometerHr(0);
 
-      probarApi(send);
-    }
-    
-    function delay(n){
-      return new Promise(function(resolve){
-          setTimeout(resolve,n*1000);
-      });
     }
 
     function probarApi(send){
       console.log("Estamos en react probaremos la api dx")
-
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: 24, duration: send })
     };
+//END- Cronometer END
+  
+
 
       console.log("requestopt valen")
       console.log(requestOptions);
