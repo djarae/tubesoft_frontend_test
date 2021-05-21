@@ -1,4 +1,4 @@
-export function formatingValue(secInt,minInt,hrInt){
+export function formatingValue(hrInt,minInt,secInt){
     let secStr=""
     let minStr=""
     let hrStr=""
@@ -20,7 +20,6 @@ export function formatingValue(secInt,minInt,hrInt){
     else{  
       hrStr = minInt.toString(); 
     }
-    hrStr = hrInt.toString(); 
   return (hrStr+":"+minStr+":"+secStr)
 }
 

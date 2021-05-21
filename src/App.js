@@ -72,7 +72,7 @@ function App() {
             await delay(1);
           }
           if (test){
-              return formatingValue(secP,minP,hrP)
+              return formatingValue(hrP,minP,secP)
           }
       }
       return  0
@@ -132,9 +132,8 @@ function App() {
     }
 //START- Cronometer END
     function chronometerEnd(){
-      // console.log("entro al end cronometer ");
-      // console.log(endCronometer);
-      let send = formatingValue(i,j,k);
+      console.log("hora vale ");console.log(k);
+      let send = formatingValue(k,j,i);
       console.log("enviar vale ") ;console.log(send)
       initializeValues();
       probarApi(send);
